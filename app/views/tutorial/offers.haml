@@ -1,0 +1,32 @@
+#tutorial
+  - if @private_layout
+    .container_12
+      .grid_6.prefix_3.suffix_3
+        = render :partial => "tutorial/breadcrumb", :locals => { :cur_path => @cur_path }
+
+        %h2
+          TODO
+
+  - else
+    = render :partial => "tutorial/breadcrumb", :locals => { :cur_path => @cur_path }
+
+    %h2.grid_24
+      = t('.what_could_you_share_with_others')
+    .grid_10.prefix_1.suffix_1.action
+      %p.blurb
+        = t(".tutorial_offers_text")
+      %p.action_button
+        = link_to t(".offer_something"), new_request_path(:type => "offer")
+      %p.skip_link
+        = link_to t(".skip_this_step"), @next_path
+    .grid_10.prefix_1.suffix_1.suggestions
+      = render :partial => "tutorial/suggestions"
+
+    .clear
+    - if not @listings.empty?
+      #recent_listings.container_18.prefix_3.suffix_3
+        %h3
+          = t('.what_others_are_offering_right_now')
+        = render :partial => "homepage/recent_listing", :collection => @listings, :as => :listing, :spacer_template => "tutorial/listing_spacer"
+
+

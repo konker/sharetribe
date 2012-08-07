@@ -3299,6 +3299,91 @@ input.resend_email_confirmation_button {
 	width: 330px;
 }
 
+/* Tutorial */
+.tutorial_listing_spacer {
+	@include spacer(black);
+}
+#tutorial {
+  h2 {
+    text-align: center;
+    font-size: 30px;
+    margin: 48px 0;
+  }
+
+  .action {
+    padding-top: 16px;
+
+    .blurb {
+    }
+    .action_button {
+      @include home_button($orange, 390px);
+    }
+    .skip_link {
+      clear: both;
+      text-align: center;
+    }
+  }
+
+  .suggestions {
+  }
+
+  #recent_listings {
+    margin: 48px 0 0 0;
+
+    h3 {
+      border-bottom: 1px solid #333;
+      padding: 0 0 6px 0;
+      margin: 0 0 12px 0;
+    }
+
+    .recent_listing_text {
+	  @include listing_text(615px);
+    }
+  }
+
+
+  /* breadcrumb styles */
+  .breadcrumb_wrapper {
+    margin: 0 0 0 0;
+
+    h3 {
+      margin: 0 0 6px 0;
+      float: left;
+      font-size: 16px;
+    }
+    .skip_link {
+      float: right;
+      a {
+        font-weight: normal;
+        font-size: 100%;
+      }
+    }
+    .breadcrumb {
+      clear: both;
+      list-style: none;
+
+      li {
+        float: left;
+        min-width: 40px;
+        max-width: 175px;
+        margin: 0 16px 0 0;
+        padding: 6px;
+        color: $orange;
+        border: 2px solid $orange;
+        border-radius: 6px;
+
+        &.selected {
+          background: $orange;
+          a {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+
 /* Tag cloud - Massi code */
 #tag_cloud {text-align: justify; }
 #tag_cloud a {border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}

@@ -1862,10 +1862,10 @@ div.listing_author_feedback_percentage {
 
 .inbox_tab_selected {
   float: left;
-  margin-right: 5px; }
+  margin-right: 8px; }
   .inbox_tab_selected a {
     padding-top: 9px;
-    width: 130px;
+    width: 140px;
     height: 27px;
     text-align: center;
     display: block;
@@ -1883,10 +1883,10 @@ div.listing_author_feedback_percentage {
 
 .inbox_tab_unselected {
   float: left;
-  margin-right: 5px; }
+  margin-right: 8px; }
   .inbox_tab_unselected a {
     padding-top: 9px;
-    width: 130px;
+    width: 140px;
     height: 27px;
     text-align: center;
     display: block;
@@ -2889,36 +2889,60 @@ span.profile_settings_visibility_info {
     margin-bottom: 10px; }
 
 .hobbies_other {
-    padding-left: 38px;
-}
+  padding-left: 38px; }
+
 .hobbies_other label {
-    font-weight: bold;
-}
+  font-weight: bold; }
+
 .hobbies_other input {
-    float: none;
-    display: inline;
-    margin-left: 6px;
-}
-#person_settings_form.hobbies_form input.send_button {
-    margin-left: 0;
-}
+  float: none;
+  display: inline;
+  margin-left: 6px; }
+
 .hobbies_checkboxes {
-    overflow: auto;
-}
+  overflow: auto; }
+
 .hobbies_checkboxes label {
-    width: 275px !important;
-}
+  width: 275px !important; }
+
 .hobbies_checkbox_container {
-	overflow: hidden;
-	width: 49%;
-    float: left;
-	margin-bottom: 10px;
-}
+  overflow: hidden;
+  width: 49%;
+  float: left;
+  margin-bottom: 10px; }
+
 .hobbies_other {
-    clear: both;
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
+  clear: both;
+  margin-top: 12px;
+  margin-bottom: 12px; }
+
+.hobbies_other {
+  padding-left: 38px; }
+
+.hobbies_other label {
+  font-weight: bold; }
+
+.hobbies_other input {
+  float: none;
+  display: inline;
+  margin-left: 6px; }
+
+.hobbies_checkboxes {
+  overflow: auto; }
+
+.hobbies_checkboxes label {
+  width: 275px !important; }
+
+.hobbies_checkbox_container {
+  overflow: hidden;
+  width: 49%;
+  float: left;
+  margin-bottom: 10px; }
+
+.hobbies_other {
+  clear: both;
+  margin-top: 12px;
+  margin-bottom: 12px; }
 
 #listing_closed_status {
   margin: 0 5px;
@@ -3910,6 +3934,91 @@ input.resend_email_confirmation_button {
     background-color: #9f7d4e; }
   input.resend_email_confirmation_button:focus {
     background-color: #9f7d4e; }
+
+/* Tutorial */
+.tutorial_listing_spacer {
+  border-top: 1px solid black;
+  width: 100%;
+  margin: 10px 0;
+  padding: 0;
+  height: 0; }
+
+#tutorial {
+  /* breadcrumb styles */ }
+  #tutorial h2 {
+    text-align: center;
+    font-size: 30px;
+    margin: 48px 0; }
+  #tutorial .action {
+    padding-top: 16px; }
+    #tutorial .action .action_button {
+      width: 390px;
+      float: left;
+      margin-bottom: 10px; }
+      #tutorial .action .action_button a {
+        display: block;
+        font-size: 14px;
+        text-align: center;
+        font-weight: normal;
+        padding: 10px 0;
+        color: white;
+        background: #d45207;
+        border-radius: 7px;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px; }
+        #tutorial .action .action_button a:hover {
+          background: #f8792f; }
+        #tutorial .action .action_button a:active {
+          background: #a33f05; }
+    #tutorial .action .skip_link {
+      clear: both;
+      text-align: center; }
+  #tutorial #recent_listings {
+    margin: 48px 0 0 0; }
+    #tutorial #recent_listings h3 {
+      border-bottom: 1px solid #333;
+      padding: 0 0 6px 0;
+      margin: 0 0 12px 0; }
+    #tutorial #recent_listings .recent_listing_text {
+      float: left;
+      font-size: 11px;
+      width: 615px;
+      margin-left: 10px; }
+      #tutorial #recent_listings .recent_listing_text span {
+        color: #797979;
+        font-style: italic;
+        font-size: 10px;
+        float: right;
+        padding-top: 1px; }
+        #tutorial #recent_listings .recent_listing_text span a {
+          font-weight: normal; }
+  #tutorial .breadcrumb_wrapper {
+    margin: 0 0 0 0; }
+    #tutorial .breadcrumb_wrapper h3 {
+      margin: 0 0 6px 0;
+      float: left;
+      font-size: 16px; }
+    #tutorial .breadcrumb_wrapper .skip_link {
+      float: right; }
+      #tutorial .breadcrumb_wrapper .skip_link a {
+        font-weight: normal;
+        font-size: 100%; }
+    #tutorial .breadcrumb_wrapper .breadcrumb {
+      clear: both;
+      list-style: none; }
+      #tutorial .breadcrumb_wrapper .breadcrumb li {
+        float: left;
+        min-width: 40px;
+        max-width: 175px;
+        margin: 0 16px 0 0;
+        padding: 6px;
+        color: #d45207;
+        border: 2px solid #d45207;
+        border-radius: 6px; }
+        #tutorial .breadcrumb_wrapper .breadcrumb li.selected {
+          background: #d45207; }
+          #tutorial .breadcrumb_wrapper .breadcrumb li.selected a {
+            color: white; }
 
 /* Tag cloud - Massi code */
 #tag_cloud {
