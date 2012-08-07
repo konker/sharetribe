@@ -1,0 +1,22 @@
+#tutorial
+  - if @private_layout
+    .container_12
+      .grid_6.prefix_3.suffix_3
+        = render :partial => "tutorial/breadcrumb", :locals => { :cur_path => @cur_path }
+
+        %h2
+          TODO
+
+  - else
+    = render :partial => "tutorial/breadcrumb", :locals => { :cur_path => @cur_path }
+
+    %h2.grid_24
+      = t('.update_profile_info')
+    .grid_10.prefix_1.suffix_1.action
+      %p.blurb
+      %p.action_button
+      %p.skip_link
+        = link_to t(".skip_this_step"), @next_path
+
+
+

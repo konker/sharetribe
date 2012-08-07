@@ -1281,6 +1281,12 @@ en:
       offer_something: "Post a new offer"
       skip_this_step: "...or skip this step"
       what_others_are_offering_right_now: "What others are offering right now"
+    profile:
+      update_profile_info: "Update your profile information"
+      skip_this_step: "...or skip this step"
+    invite:
+      invite_your_friends: "Invite your friends"
+      skip_this_step: "...or skip this step"
   time:
     formats:
       short: "%e %b %Y at %H:%M"
