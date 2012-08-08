@@ -3952,7 +3952,8 @@ input.resend_email_confirmation_button {
   #tutorial .action {
     padding-top: 16px; }
     #tutorial .action .blurb {
-      font-size: 14px; }
+      font-size: 14px;
+      min-height: 152px; }
     #tutorial .action .action_button {
       width: 350px;
       float: left;
@@ -4027,18 +4028,41 @@ input.resend_email_confirmation_button {
       clear: both;
       list-style: none; }
       #tutorial .breadcrumb_wrapper .breadcrumb li {
+        position: relative;
         float: left;
         min-width: 40px;
+        height: 18px;
         max-width: 175px;
-        margin: 0 16px 0 0;
-        padding: 6px;
+        margin: 0 28px 0 0;
+        padding: 6px 12px;
         color: #d45207;
+        background: #f7f5e6;
         border: 2px solid #d45207;
         border-radius: 6px; }
         #tutorial .breadcrumb_wrapper .breadcrumb li.selected {
           background: #d45207; }
           #tutorial .breadcrumb_wrapper .breadcrumb li.selected a {
             color: white; }
+      #tutorial .breadcrumb_wrapper .breadcrumb .arrow_box:after, #tutorial .breadcrumb_wrapper .breadcrumb .arrow_box:before {
+        left: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none; }
+      #tutorial .breadcrumb_wrapper .breadcrumb .arrow_box:after {
+        border-left-color: #f7f5e6;
+        border-width: 12px;
+        top: 50%;
+        margin-top: -12px; }
+      #tutorial .breadcrumb_wrapper .breadcrumb .arrow_box.selected:after {
+        border-left-color: #d45207; }
+      #tutorial .breadcrumb_wrapper .breadcrumb .arrow_box:before {
+        border-left-color: #d45207;
+        border-width: 15px;
+        top: 50%;
+        margin-top: -15px; }
 
 /* Tag cloud - Massi code */
 #tag_cloud {

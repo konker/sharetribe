@@ -3321,6 +3321,7 @@ input.resend_email_confirmation_button {
 
     .blurb {
       font-size: 14px;
+      min-height: 152px;
     }
     .action_button {
       @include home_button($orange, 350px);
@@ -3391,12 +3392,15 @@ input.resend_email_confirmation_button {
       list-style: none;
 
       li {
+        position: relative;
         float: left;
         min-width: 40px;
+        height: 18px;
         max-width: 175px;
-        margin: 0 16px 0 0;
-        padding: 6px;
+        margin: 0 28px 0 0;
+        padding: 6px 12px;
         color: $orange;
+        background: $bg_color;
         border: 2px solid $orange;
         border-radius: 6px;
 
@@ -3406,6 +3410,31 @@ input.resend_email_confirmation_button {
             color: white;
           }
         }
+      }
+
+      .arrow_box:after, .arrow_box:before {
+        left: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .arrow_box:after {
+        border-left-color: $bg_color;
+        border-width: 12px;
+        top: 50%;
+        margin-top: -12px;
+      }
+      .arrow_box.selected:after {
+        border-left-color: $orange;
+      }
+      .arrow_box:before {
+        border-left-color: $orange;
+        border-width: 15px;
+        top: 50%;
+        margin-top: -15px;
       }
     }
   }

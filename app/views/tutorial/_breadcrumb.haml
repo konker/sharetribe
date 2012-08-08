@@ -4,14 +4,14 @@
   .skip_link
     = link_to t(".skip_tutorial"), root_path
   %ol.breadcrumb
-    %li{:class => cur_path == tutorial_requests_path && :selected}
+    %li{:class => [ cur_path == tutorial_requests_path && :selected, :arrow_box ]}
       = link_to t(".what_do_you_need"), tutorial_requests_path
 
-    %li{:class => cur_path == tutorial_offers_path && :selected}
+    %li{:class => [ cur_path == tutorial_offers_path && :selected, :arrow_box ]}
       = link_to t(".what_can_you_share"), tutorial_offers_path
 
-    %li{:class => cur_path == tutorial_profile_path && :selected}
+    %li{:class => [ cur_path == tutorial_profile_path && :selected, :arrow_box ]}
       = link_to t(".update_profile_info"), tutorial_profile_path
 
-    %li{:class => [cur_path == tutorial_invite_path && :selected, :omega]}
+    %li{:class => [ cur_path == tutorial_invite_path && :selected, :arrow_box, :omega]}
       = link_to t(".invite_your_friends"), tutorial_invite_path
