@@ -53,24 +53,15 @@ class TutorialController < ApplicationController
 
     # get the current user's "official" hobbies
     hobbies = @current_person.hobbies.official
+    hobby_ids = hobbies.collect(&:id)
 
-    # fetch the action_suggestions using these hobbies
-    hobbies.each do |h|
-      if h.action_suggestions.where(:action_type => action_type).size > 0
-        # get a random index into the suggestions
-        i = rand(h.action_suggestions.where(:action_type => action_type).size)
+    # fetch the action suggestions which match these hobbies
+    hobby_suggestions = ActionSuggestion.where(:action_type => action_type, :hobby_id => hobby_ids)
 
-        # choose this suggestion
-        s = h.action_suggestions.where(:action_type => action_type)[i]
-        suggestions << s
-
-        # remember that it has been already chosen
-        chosen << s.id
-
-        if suggestions.size == n
-          break
-        end
-      end
+    # shuffle these suggestions and add them to the results
+    if hobby_suggestions.size > 0
+      suggestions.concat(hobby_suggestions.shuffle.slice(0, n))
+      chosen.concat(hobby_suggestions.collect(&:id))
     end
 
     # if not enough, add some random ones
