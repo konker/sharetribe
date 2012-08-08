@@ -12,15 +12,17 @@
 
     %h2.grid_24
       = t('.what_could_you_share_with_others')
-    .grid_10.prefix_1.suffix_1.action
+    .grid_9.prefix_1.suffix_1.action
       %p.blurb
         = t(".tutorial_offers_text")
       %p.action_button
         = link_to t(".offer_something"), new_request_path(:type => "offer")
       %p.skip_link
         = link_to t(".skip_this_step"), @next_path
-    .grid_10.prefix_1.suffix_1.suggestions
-      = render :partial => "tutorial/suggestions"
+    .grid_13.suggestions
+      %h4
+        = t(".could_you")
+      = render :partial => "tutorial/suggestion", :collection => @suggestions, :as => :suggestion
 
     .clear
     - if not @listings.empty?

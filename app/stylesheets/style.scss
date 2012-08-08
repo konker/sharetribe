@@ -24,6 +24,12 @@
 	-webkit-border-top-#{$side}-radius: $radius;
 }
 
+@mixin drop_shadow($x_offset, $y_offset, $size, $color) {
+  box-shadow: $x_offset $y_offset $size $color;
+  -moz-box-shadow: $x_offset $y_offset $size $color;
+  -webkit-box-shadow: $x_offset $y_offset $size $color;
+}
+
 /* Basic form */
 @mixin form {
 	background: $form_bg;
@@ -3314,9 +3320,14 @@ input.resend_email_confirmation_button {
     padding-top: 16px;
 
     .blurb {
+      font-size: 14px;
     }
     .action_button {
-      @include home_button($orange, 390px);
+      @include home_button($orange, 350px);
+      a  {
+        font-weight: bold;
+        font-size: 18px;
+      }
     }
     .skip_link {
       clear: both;
@@ -3325,6 +3336,23 @@ input.resend_email_confirmation_button {
   }
 
   .suggestions {
+    h4 {
+      margin: 0 0 4px 0;
+    }
+    .suggestion {
+      float: left;
+      margin: 0 10px 10px 0;
+      padding: 10px;
+      background: white;
+      text-align: left;
+      @include drop_shadow(3px, 3px, 3px, #888);
+
+      .caption {
+        font-size: 11px;
+        margin: 0;
+        max-width: 128px;
+      }
+    }
   }
 
   #recent_listings {

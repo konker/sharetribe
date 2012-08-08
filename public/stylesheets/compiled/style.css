@@ -3951,8 +3951,10 @@ input.resend_email_confirmation_button {
     margin: 48px 0; }
   #tutorial .action {
     padding-top: 16px; }
+    #tutorial .action .blurb {
+      font-size: 14px; }
     #tutorial .action .action_button {
-      width: 390px;
+      width: 350px;
       float: left;
       margin-bottom: 10px; }
       #tutorial .action .action_button a {
@@ -3970,9 +3972,27 @@ input.resend_email_confirmation_button {
           background: #f8792f; }
         #tutorial .action .action_button a:active {
           background: #a33f05; }
+      #tutorial .action .action_button a {
+        font-weight: bold;
+        font-size: 18px; }
     #tutorial .action .skip_link {
       clear: both;
       text-align: center; }
+  #tutorial .suggestions h4 {
+    margin: 0 0 4px 0; }
+  #tutorial .suggestions .suggestion {
+    float: left;
+    margin: 0 10px 10px 0;
+    padding: 10px;
+    background: white;
+    text-align: left;
+    box-shadow: 3px 3px 3px #888888;
+    -moz-box-shadow: 3px 3px 3px #888888;
+    -webkit-box-shadow: 3px 3px 3px #888888; }
+    #tutorial .suggestions .suggestion .caption {
+      font-size: 11px;
+      margin: 0;
+      max-width: 128px; }
   #tutorial #recent_listings {
     margin: 48px 0 0 0; }
     #tutorial #recent_listings h3 {

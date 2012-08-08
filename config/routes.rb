@@ -226,6 +226,15 @@ Kassi::Application.routes.draw do
     resources :statistics
   end
   
+  # Tutorial pages
+  scope "(/:locale)" do
+    match "/tutorial" => redirect("/%{locale}/tutorial/requests")
+    match "/tutorial/requests" => "tutorial#requests", :as => :tutorial_requests
+    match "/tutorial/offers" => "tutorial#offers", :as => :tutorial_offers
+    match "/tutorial/profile" => "tutorial#profile", :as => :tutorial_profile
+    match "/tutorial/invite" => "tutorial#invite", :as => :tutorial_invite
+  end
+  
   # Some non-RESTful mappings
   match '/:locale/api' => "dashboard#api", :as => :api
   match '/:locale/faq' => "dashboard#faq", :as => :faq
@@ -262,15 +271,6 @@ Kassi::Application.routes.draw do
   match "/:locale/listing_bubble/:id" => "listings#listing_bubble", :as => :listing_bubble
   match "/:locale/listing_bubble_multiple/:ids" => "listings#listing_bubble_multiple", :as => :listing_bubble_multiple
   match '/:locale/:page_type' => 'dashboard#campaign'
-  
-  # Tutorial pages
-  scope "(/:locale)" do
-    match "/tutorial" => "tutorial#requests"
-    match "/tutorial/requests" => "tutorial#requests", :as => :tutorial_requests
-    match "/tutorial/offers" => "tutorial#offers", :as => :tutorial_offers
-    match "/tutorial/profile" => "tutorial#profile", :as => :tutorial_profile
-    match "/tutorial/invite" => "tutorial#invite", :as => :tutorial_invite
-  end
 
   # Inside this constraits are the routes that are used when request has subdomain other than www
   constraints(Subdomain) do

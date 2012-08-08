@@ -11,10 +11,10 @@ class HobbiesController < ApplicationController
 
   def show
     # get list of 'official' hobbies
-    @official_hobbies = Hobby.where(:official => true)
+    @official_hobbies = Hobby.official
 
     # collect the current user's non-'official' hobbies
-    @other_hobbies = @current_person.hobbies.select { |x| x.official == false }
+    @other_hobbies = @current_person.hobbies.unofficial
   end
   
   private
