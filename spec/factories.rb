@@ -132,3 +132,16 @@ Factory.define :device do |d|
   d.device_token "LSIDFSLDJIOGSSCSBEUS52349583"
   d.person { |person| person.association(:person, :id => get_test_person_and_session("kassi_testperson1")[0].id) }
 end
+
+Factory.define :hobby do |h|
+  h.name "A Hobby"
+  h.official true
+end
+
+Factory.define :action_suggestion do |s|
+  s.caption "An Action Suggestion"
+  s.image "/images/medium/missing.png"
+  s.action_type "request"
+  s.hobby_id 1
+end
+
