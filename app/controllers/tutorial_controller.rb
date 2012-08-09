@@ -2,8 +2,12 @@ class TutorialController < ApplicationController
   
   layout :choose_layout
 
+  before_filter do |controller|
+    controller.ensure_logged_in nil
+  end
+
   skip_filter :not_public_in_private_community, :dashboard_only
-  skip_filter :single_community_only, :only => :create
+  skip_filter :single_community_only
 
   def requests
     @cur_path = tutorial_requests_path
