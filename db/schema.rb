@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909143322) do
+ActiveRecord::Schema.define(:version => 20120919122430) do
+
+  create_table "action_suggestions", :force => true do |t|
+    t.string   "caption"
+    t.string   "image"
+    t.string   "action_type", :null => false
+    t.integer  "hobby_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "badges", :force => true do |t|
     t.string   "person_id"
@@ -329,7 +338,7 @@ ActiveRecord::Schema.define(:version => 20120909143322) do
     t.boolean  "show_real_name_to_other_users",               :default => true
     t.string   "username"
     t.string   "email"
-    t.string   "encrypted_password",                          :default => "",   :null => false
+    t.string   "encrypted_password",                          :default => "",         :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -348,8 +357,8 @@ ActiveRecord::Schema.define(:version => 20120909143322) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "facebook_id"
-    t.string   "authentication_token"
     t.string   "hobby_status",                                :default => "Existing"
+    t.string   "authentication_token"
   end
 
   add_index "people", ["confirmation_token"], :name => "index_people_on_confirmation_token", :unique => true
@@ -359,10 +368,8 @@ ActiveRecord::Schema.define(:version => 20120909143322) do
   add_index "people", ["username"], :name => "index_people_on_username", :unique => true
 
   create_table "person_hobbies", :id => false, :force => true do |t|
-    t.string   "person_id"
-    t.integer  "hobby_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "person_id"
+    t.integer "hobby_id"
   end
 
   create_table "poll_answers", :force => true do |t|
