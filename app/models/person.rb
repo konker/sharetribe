@@ -59,9 +59,9 @@ class Person < ActiveRecord::Base
   has_one :location, :conditions => ['location_type = ?', 'person'], :dependent => :destroy
   
   has_many :participations, :dependent => :destroy 
-  has_many :conversations, :through => :participations
-  has_many :authored_testimonials, :class_name => "Testimonial", :foreign_key => "author_id"
-  has_many :received_testimonials, :class_name => "Testimonial", :foreign_key => "receiver_id", :order => "id DESC"
+  has_many :conversations, :through => :participations, :dependent => :destroy
+  has_many :authored_testimonials, :class_name => "Testimonial", :foreign_key => "author_id", :dependent => :destroy
+  has_many :received_testimonials, :class_name => "Testimonial", :foreign_key => "receiver_id", :order => "id DESC", :dependent => :destroy
   has_many :received_positive_testimonials, :class_name => "Testimonial", :foreign_key => "receiver_id", :conditions => "grade IN (0.5,0.75,1)", :order => "id DESC"
   has_many :received_negative_testimonials, :class_name => "Testimonial", :foreign_key => "receiver_id", :conditions => "grade IN (0.0,0.25)", :order => "id DESC"
   has_many :messages, :foreign_key => "sender_id"
@@ -73,7 +73,11 @@ class Person < ActiveRecord::Base
   has_many :invitations, :foreign_key => "inviter_id", :dependent => :destroy
   has_many :poll_answers, :class_name => "PollAnswer", :foreign_key => "answerer_id", :dependent => :destroy
   has_many :answered_polls, :through => :poll_answers, :source => :poll
-  has_many :devices
+  has_many :devices, :dependent => :destroy
+  #event where this person did something
+  has_many :done_event_feed_events, :class_name => "EventFeedEvent", :foreign_key => "person1_id", :dependent => :destroy 
+  # events where this person was the target of the action
+  has_many :targeted_event_feed_events, :class_name => "EventFeedEvent", :foreign_key => "person2_id", :dependent => :destroy
   
   has_and_belongs_to_many :followed_listings, :class_name => "Listing", :join_table => "listing_followers"
   has_and_belongs_to_many :hobbies, :join_table => 'person_hobbies'
@@ -454,10 +458,11 @@ class Person < ActiveRecord::Base
   def has_email?(address)
     self.email == address || Email.find_by_address_and_person_id(address, self.id).present?
   end
-  
+    
+  # Returns true if the address given as a parameter is confirmed
   def has_confirmed_email?(address)
     additional_email = Email.find_by_address(address)
-    (self.email.eql?(address) && self.confirmed_at) || (additional_email && additional_email.confirmed_at?)
+    (self.email.eql?(address) && self.confirmed_at) || (additional_email && additional_email.confirmed_at.present?)
   end
   
   def has_valid_email_for_community?(community)
@@ -508,8 +513,9 @@ class Person < ActiveRecord::Base
   end
   
   # returns the same if its available, otherwise "same1", "same2" etc.
+  # Changes most special characters to _ to match with current validations
   def self.available_username_based_on(initial_name)
-    current_name = initial_name
+    current_name = initial_name.gsub(/[^A-Z0-9_]/i,"_")
     i = 1
     while self.find_by_username(current_name) do
       current_name = "#{initial_name}#{i}"

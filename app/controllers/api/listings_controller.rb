@@ -1,8 +1,7 @@
 class Api::ListingsController < Api::ApiController
-
+  include ListingsHelper
   before_filter :authenticate_person!, :except => [:index, :show]
-  # TODO limit visibility of listings in index method based on the visibility rules
-  # It requires to authenticate the user but also allow unauthenticated access to above methods
+  before_filter :require_community, :except => :show
   
   # TODO: limit the visibility of one listing. The below doesn't work yet as the param name is different in this case (only id)
   #before_filter :ensure_authorized_to_view_listing, :only => [:show]
@@ -13,11 +12,6 @@ class Api::ListingsController < Api::ApiController
     
     query = params.slice("category", "listing_type")
     
-    unless @current_community
-      response.status = 400
-      render :json => ["Community_id is a required parameter."] and return
-    end
-    
     if params["status"] == "closed"
       query["open"] = false
     elsif params["status"] == "all"
@@ -26,16 +20,42 @@ class Api::ListingsController < Api::ApiController
       query["open"] = true #default
     end
     
+    if params["person_id"]
+      query["author_id"] = params["person_id"]
+    end
+    
+    unless @current_user && @current_user.communities.include?(@current_community)
+      query["visibility"] = "everybody"
+    end
+    
     if params["search"]
       @listings = search_listings(params["search"], query)
-    elsif params["community_id"]
-      @listings = Community.find(params["community_id"]).listings.where(query).order("created_at DESC").paginate(:per_page => @per_page, :page => @page)
+    elsif @current_community
+      listings_to_query = (query["open"] ? @current_community.listings.open : @current_community.listings)
+      @listings = listings_to_query.where(query).order("created_at DESC").paginate(:per_page => @per_page, :page => @page)
     else
       # This is actually not currently supported. Community_id is currently required parameter.
       @listings = Listing.where(query).order("created_at DESC").paginate(:per_page => @per_page, :page => @page)
     end
     
     @total_pages = @listings.total_pages
+    
+    # Few extra fields for ATOM feed
+    if params[:format].to_s == "atom" 
+      
+      @category_label = (params["category"] ? "(" + localized_category_label(params["category"]) + ")" : "")
+      
+      if ["request","offer"].include?params['listing_type']
+        listing_type_label = t("listings.index.#{params['listing_type']+"s"}")
+      else
+         listing_type_label = t("listings.index.listings")
+      end
+      
+      #@title = "Recent #{@category_label}listings in #{@current_community.name} #{service_name}"
+      @title = t("listings.index.feed_title", :optional_category => @category_label, :community_name => @current_community.name, :listing_type => listing_type_label)
+      @updated = Time.now # FIXME: something more accurate
+      @url_root = "#{request.protocol}#{@current_community.full_domain}"
+    end
     respond_with @listings
   end
 
@@ -81,21 +101,16 @@ class Api::ListingsController < Api::ApiController
                                         ).merge({"author_id" => current_person.id, 
                                                  "listing_images_attributes" => {"0" => {"image" => params["image"]} }}))
     
-    @community = Community.find(params["community_id"])
-    if @community.nil?
-      response.status = 400
-      render :json => ["community_id parameter missing, or no community found with given id"] and return
-    end
     
-    if current_person.member_of?(@community)
-      @listing.communities << @community
+    if current_person.member_of?(@current_community)
+      @listing.communities << @current_community
     else
       response.status = 400
       render :json => ["The user is not member of given community."] and return
     end
     
     if @listing.save
-      Delayed::Job.enqueue(ListingCreatedJob.new(@listing.id, @community.full_domain))
+      Delayed::Job.enqueue(ListingCreatedJob.new(@listing.id, @current_community.full_domain))
       response.status = 201 
       respond_with(@listing)
     else

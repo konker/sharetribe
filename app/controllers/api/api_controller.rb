@@ -12,7 +12,7 @@ class Api::ApiController < ApplicationController
   before_filter :set_pagination
 
     
-  respond_to :json
+  respond_to :json, :atom
     
   layout false
   
@@ -36,7 +36,7 @@ class Api::ApiController < ApplicationController
   
 
   def api_version
-    default_version = 'alpha'
+    default_version = '1'
     pattern = /application\/vnd\.sharetribe.*version=([\d]+)/
     request.env['HTTP_ACCEPT'][pattern, 1] || default_version
   end
@@ -79,6 +79,15 @@ class Api::ApiController < ApplicationController
   end
 
   def set_current_community_if_given
+    if @current_community = Community.find_by_domain(request.subdomain)
+      #puts "#{params[:community_id]} ---  #{@current_community.id}"
+      if params[:community_id] && (params[:community_id].to_s != @current_community.id.to_s)
+        response.status = 400
+        render :json => ["Community subdomain mismatch with community_id given in params. Using one of these is enough."] and return
+      end
+      return
+    end
+    
     if params["community_id"]
       @current_community = Community.find_by_id(params["community_id"])
       if @current_community.nil? 
@@ -88,9 +97,26 @@ class Api::ApiController < ApplicationController
     end
   end
   
+  def require_community
+    unless @current_community
+      response.status = 400
+      render :json => ["Community must be selected. Easiest done by providing a community_id parameter."] and return
+    end
+  end
+  
   def set_current_user_if_authorized_request
     # Devise gives us the current_person automatically if valid api_token provided
     @current_user = current_person
+  end
+  
+  def find_target_person
+    if params["person_id"]
+      @person = Person.find_by_id(params["person_id"])
+      if @person.nil? 
+        response.status = 404
+        render :json => ["No user found with person_id"] and return
+      end
+    end
   end
   
   def set_pagination

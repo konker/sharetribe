@@ -3,8 +3,9 @@ module ApplicationHelper
   @@use_asi_in_this_test = (ENV["KASSI_TESTS_WITH_ASI"] == "true")
   
   # Removes whitespaces from HAML expressions
-  def one_line(&block)
-    haml_concat capture_haml(&block).gsub("\n", '')
+  # if you add two elements on two lines; the white space creates a space between the elements (in some browsers)
+  def one_line_for_html_safe_content(&block)
+    haml_concat capture_haml(&block).gsub("\n", '').html_safe
   end
   
   # Returns a human friendly format of the time stamp
@@ -55,8 +56,7 @@ module ApplicationHelper
   
   # Changes line breaks to <br>-tags and transforms URLs to links
   def text_with_line_breaks(&block)
-    pattern = /[\.)]*$/
-    haml_concat capture_haml(&block).gsub(/https?:\/\/\S+/) { |link_url| link_to(truncate(link_url.gsub(pattern,""), :length => 50, :omission => "..."), link_url.gsub(pattern,"")) + link_url.match(pattern)[0]}.gsub(/\n/, "<br />")
+    haml_concat add_links_and_br_tags(capture_haml(&block)).html_safe
   end
   
   def small_avatar_thumb(person)
@@ -289,7 +289,22 @@ module ApplicationHelper
   end
   
   def get_url_for(community)
-    "http://#{community.domain}.#{request.domain}/#{I18n.locale}"
+    "http://#{with_subdomain(community.domain)}/#{I18n.locale}"
   end
+  
+  # general method for making urls as links and line breaks as <br /> tags
+  def add_links_and_br_tags(text)
+    pattern = /[\.)]*$/
+    text.gsub(/https?:\/\/\S+/) { |link_url| link_to(truncate(link_url.gsub(pattern,""), :length => 50, :omission => "..."), link_url.gsub(pattern,"")) + link_url.match(pattern)[0]}.gsub(/\n/, "<br />")
+  end
+  
+  def atom_feed_url(params={})
+    url = "#{request.protocol}#{request.host_with_port}/listings.atom?locale=#{I18n.locale}"
+    params.each do |key, value|
+      url += "&#{key}=#{value}"
+    end
+    return url
+  end
+  
   
 end
