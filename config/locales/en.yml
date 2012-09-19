@@ -467,6 +467,20 @@ en:
     offers: Offers
     requests: Requests
     search_kassi: "Search %{service_name}"
+  hobbies:
+    Travel: "Travel"
+    Arts/Crafts: "Arts/Crafts"
+    Gardening: "Gardening"
+    Wildlife/Nature: "Wildlife/Nature"
+    Cooking: "Cooking"
+    Books/Magazines: "Books/Magazines"
+    Sports: "Sports"
+    Fashion: "Fashion"
+    Pets/Animals: "Pets/Animals"
+    Music: "Music"
+    Computers/Technology: "Computers/Technology"
+    Gaming: "Gaming"
+    other: "Other"
   homepage:
     additional_private_listings_slate:
       additionally_one_private_offer_exists: "Additionally  there is <b>one other offer</b>,"
@@ -1192,6 +1206,10 @@ en:
     avatar:
       add_avatar_submit: "Save picture"
       update_profile_picture: "Update profile picture"
+    hobbies:
+      my_hobbies: "My Hobbies"
+      my_hobbies_intro: "Sharetribe is a place where people share goods and services based on their interests, abilities and hobbies. Please tell us about your hobbies. You can select as many as you like. These will not be shown to other Sharetribe users. You can change them at any time from your settings."
+
     notifications:
       i_want_to_get_email_notification_when: "I want to get an email notification when..."
       newsletters: Newsletters
