@@ -36,7 +36,7 @@ class CommunitiesController < ApplicationController
     session[:community_category] = params[:category] if params[:category]
     session[:pricing_plan] = params[:pricing_plan] if params[:pricing_plan]
     session[:community_locale] = params[:community_locale] if params[:community_locale]
-    @existing_community = Community.find_by_email_ending(params[:new_tribe_email]) if params[:new_tribe_email]
+    
     session[:confirmed_email] = session[:unconfirmed_email] if session[:unconfirmed_email] && @current_user.has_confirmed_email?(session[:unconfirmed_email])
     
     respond_to do |format|
@@ -89,21 +89,27 @@ class CommunitiesController < ApplicationController
   end
   
   def set_organization_email
-    if @current_user.emails.select{|e| e.confirmed_at.present?}.include?(params[:email])
+    session[:allowed_email] = "@#{params[:email].split('@')[1]}"
+    if @current_user.has_confirmed_email?(params[:email])
       session[:confirmed_email] = params[:email]
-      session[:allowed_email] = "@#{params[:email].split('@')[1]}"
     else
-      # no confirmed allowed email found. Check if there is unconfirmed or should we add one.
-      if @current_user.has_email?(params[:email])
-        e = Email.find_by_address(params[:email])
-      elsif 
-        e = Email.create(:person => @current_user, :address => params[:email])
-      end
+      # no confirmed allowed email found. 
+      # Check if there is unconfirmed or should we add one.
+      
+      if @current_user.email == params[:email] # check primary email
+        @current_user.send_confirmation_instructions
+      else
+        if @current_user.has_email?(params[:email]) #unconfirmed additional email
+          e = Email.find_by_address(params[:email])
+        else
+          e = Email.create(:person => @current_user, :address => params[:email])
+        end
     
-      # Send confirmation
-      PersonMailer.additional_email_confirmation(e, request.host_with_port).deliver
-      e.confirmation_sent_at = Time.now
-      e.save
+        # Send confirmation for additional email
+        PersonMailer.additional_email_confirmation(e, request.host_with_port).deliver
+        e.confirmation_sent_at = Time.now
+        e.save
+      end
       session[:unconfirmed_email] = params[:email]
     end
     redirect_to new_tribe_path

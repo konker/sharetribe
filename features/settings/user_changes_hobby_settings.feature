@@ -26,9 +26,9 @@ Feature: User changes hobby settings
     And I am logged in as "kassi_testperson1"
     When I follow "Settings"
     And I follow "hobbies_settings_link"
-    And I fill in "other" with "Fishing, Philately"
+    And I fill in "Other" with "Fishing, Philately"
     And I press "Save information"
     Then I should see "Information updated"
-    And the "other" field should contain "Fishing, Philately"
+    And the "Other" field should contain "Fishing, Philately"
 
 

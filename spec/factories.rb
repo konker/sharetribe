@@ -7,7 +7,7 @@ Factory.sequence :email do |n|
 end
 
 Factory.sequence :domain do |n|
-  "kassi_testcommunity_#{n}" 
+  "sharetribe_testcommunity_#{n}" 
 end
 
 
@@ -143,5 +143,15 @@ Factory.define :action_suggestion do |s|
   s.image "/images/medium/missing.png"
   s.action_type "request"
   s.hobby_id 1
+end
+
+Factory.define :location do |c|
+  c.association :listing
+  c.association :person
+  c.association :community
+  c.latitude 62.2426
+  c.longitude 25.7475
+  c.address "helsinki"
+  c.google_address "Helsinki, Finland"
 end
 

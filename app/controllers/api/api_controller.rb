@@ -9,9 +9,10 @@ class Api::ApiController < ApplicationController
   prepend_before_filter :get_api_key
   before_filter :ensure_api_enabled, :set_correct_mime_type
   before_filter :set_current_community_if_given, :set_current_user_if_authorized_request
+  before_filter :set_pagination
 
     
-  respond_to :json
+  respond_to :json, :atom
     
   layout false
   
@@ -35,7 +36,7 @@ class Api::ApiController < ApplicationController
   
 
   def api_version
-    default_version = 'alpha'
+    default_version = '1'
     pattern = /application\/vnd\.sharetribe.*version=([\d]+)/
     request.env['HTTP_ACCEPT'][pattern, 1] || default_version
   end
@@ -48,8 +49,14 @@ class Api::ApiController < ApplicationController
   end
   
   # Ensure that only users with appropriate visibility settings can view the listing
-  def ensure_authorized_to_view_listing
-    @listing = Listing.find_by_id(params[:listing_id])
+  def ensure_authorized_to_view_listing(allow_nil=false)
+    # if there is no param listing_id the request is probably in listings_controller, where it is just id.
+    id = params[:listing_id] || params[:id]
+    if allow_nil && id.nil?
+      return true
+    end
+    
+    @listing = Listing.find_by_id(id)
     if @listing.nil?
       response.status = 404
       render :json => ["No listing found with given id"] and return
@@ -72,6 +79,15 @@ class Api::ApiController < ApplicationController
   end
 
   def set_current_community_if_given
+    if @current_community = Community.find_by_domain(request.subdomain)
+      #puts "#{params[:community_id]} ---  #{@current_community.id}"
+      if params[:community_id] && (params[:community_id].to_s != @current_community.id.to_s)
+        response.status = 400
+        render :json => ["Community subdomain mismatch with community_id given in params. Using one of these is enough."] and return
+      end
+      return
+    end
+    
     if params["community_id"]
       @current_community = Community.find_by_id(params["community_id"])
       if @current_community.nil? 
@@ -81,9 +97,31 @@ class Api::ApiController < ApplicationController
     end
   end
   
+  def require_community
+    unless @current_community
+      response.status = 400
+      render :json => ["Community must be selected. Easiest done by providing a community_id parameter."] and return
+    end
+  end
+  
   def set_current_user_if_authorized_request
     # Devise gives us the current_person automatically if valid api_token provided
     @current_user = current_person
+  end
+  
+  def find_target_person
+    if params["person_id"]
+      @person = Person.find_by_id(params["person_id"])
+      if @person.nil? 
+        response.status = 404
+        render :json => ["No user found with person_id"] and return
+      end
+    end
+  end
+  
+  def set_pagination
+    @page = params["page"] || 1
+    @per_page = params["per_page"] || 50   
   end
   
 end

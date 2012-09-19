@@ -428,6 +428,8 @@ en:
     no_javascript:
       javascript_is_disabled_in_your_browser: "Javascript is disabled in your browser"
       kassi_does_not_currently_work_without_javascript: "Unfortunately %{service_name} does not currently work without javascript. Try to enable javascript from your browser's preferences and then reload this page again. If you'd like to use %{service_name} without javascript, please send us feedback using the form below."
+      kassi_does_not_currently_work_without_javascript_dashboard: "Unfortunately %{service_name} does not currently work without javascript. Try to enable javascript from your browser's preferences and then reload this page again. If you'd like to use %{service_name} without javascript, please %{contact_us}."
+      contact_us: "contact us"
       send_feedback: "Send feedback"
       your_feedback_to_admins: "Your feedback to admins"
     send: Send
@@ -465,6 +467,20 @@ en:
     offers: Offers
     requests: Requests
     search_kassi: "Search %{service_name}"
+  hobbies:
+    Travel: "Travel"
+    Arts/Crafts: "Arts/Crafts"
+    Gardening: "Gardening"
+    Wildlife/Nature: "Wildlife/Nature"
+    Cooking: "Cooking"
+    Books/Magazines: "Books/Magazines"
+    Sports: "Sports"
+    Fashion: "Fashion"
+    Pets/Animals: "Pets/Animals"
+    Music: "Music"
+    Computers/Technology: "Computers/Technology"
+    Gaming: "Gaming"
+    other: "Other"
   homepage:
     additional_private_listings_slate:
       additionally_one_private_offer_exists: "Additionally  there is <b>one other offer</b>,"
@@ -826,6 +842,7 @@ en:
       housing: Spaces
       items: Items
       list_view: "List view"
+      listings: Listings
       map_view: "Map view"
       offer_something: "Let others know!"
       offer_type: "Offer type"
@@ -836,6 +853,7 @@ en:
       rideshare: Rideshare
       search_verb: Search
       you_have_something_others_do_not: "Have something to offer?"
+      feed_title: "%{listing_type} in %{community_name} %{service_name} %{optional_category}"
     left_panel_link:
       borrows: Borrowing
       buys: Buying
@@ -869,8 +887,8 @@ en:
       link_label_for_item_request_buy: "Offer to sell this item"
       link_label_for_item_request_receive: "Give this item to requester"
       link_label_for_item_request_trade: "Offer to swap this item"
-      link_label_for_rideshare_offer: "Offer ride"
-      link_label_for_rideshare_request: "Request this ride"
+      link_label_for_rideshare_offer: "Request this ride"
+      link_label_for_rideshare_request: "Offer ride"
       message_link_label_for_offer: "Send private message to offerer"
       message_link_label_for_request: "Send private message to requester"
       message_link_label_for_item_offer_lend: "Send private message to lender"
@@ -984,6 +1002,9 @@ en:
       email_is_in_use: "The email you gave is already in use."
       email_is_in_use_or_not_allowed: "This email is not allowed for this community or it is already in use. Please use an address that is associated with this community (see instructions above). If you still cannot get in, send us feedback by clicking the link on the left."
       email_not_allowed: "This email is not allowed for this community. Please use an address that is associated with this community. If you still cannot get in, send us feedback by clicking the link on the left."
+      email_restriction_instructions:
+          one: "This community is only for %{community_name}. To join you need a '%{allowed_emails}' email address."
+          other: "This community is only for %{community_name}. To join you need an email address that has one of the following endings: %{allowed_emails}"
       enter_captcha: "I'm a human:"
       family_name: "Family name:"
       given_name: "Given name:"
@@ -1185,6 +1206,10 @@ en:
     avatar:
       add_avatar_submit: "Save picture"
       update_profile_picture: "Update profile picture"
+    hobbies:
+      my_hobbies: "My Hobbies"
+      my_hobbies_intro: "Sharetribe is a place where people share goods and services based on their interests, abilities and hobbies. Please tell us about your hobbies. You can select as many as you like. These will not be shown to other Sharetribe users. You can change them at any time from your settings."
+
     notifications:
       i_want_to_get_email_notification_when: "I want to get an email notification when..."
       newsletters: Newsletters

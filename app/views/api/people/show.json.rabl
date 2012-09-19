@@ -1,5 +1,5 @@
 object @person
-attributes :id, :username, :given_name, :family_name, :locale, :phone_number, :description
+attributes :id, :username, :given_name, :family_name, :locale, :description
 
 node :communities do |person|
   person.communities.map do |community|
@@ -20,3 +20,11 @@ end
 if @show_email
   attributes :email
 end
+
+if @current_user
+  attributes :phone_number
+  child :location => :location do
+    extends "api/locations/show"
+  end
+end
+

@@ -18,7 +18,11 @@ class ConversationsController < ApplicationController
   before_filter :ensure_listing_is_open, :only => [ :new, :create ]
   before_filter :ensure_listing_author_is_not_current_user, :only => [ :new, :create ]
   before_filter :ensure_authorized_to_reply, :only => [ :new, :create ]
+  
   skip_filter :dashboard_only
+  
+  # Skip auth token check as current jQuery doesn't provide it automatically
+  skip_before_filter :verify_authenticity_token, :only => [:accept, :reject]
   
   def index
     redirect_to received_person_messages_path(:person_id => @current_user.id)
@@ -88,7 +92,7 @@ class ConversationsController < ApplicationController
   end
   
   def change_status(status)
-    @conversation.change_status(status, @current_user, @current_community, request)
+    @conversation.change_status(status, @current_user, @current_community, request.host)
     flash.now[:notice] = "#{@conversation.discussion_type}_#{status}"
     respond_to do |format|
       format.html { render :action => :show }

@@ -32,7 +32,7 @@ module ListingsHelper
   def clear_datetime_select(&block)
     time = "</div><div class='date_select_time_container'><div class='datetime_select_time_label'>#{t('listings.form.departure_time.at')}:</div>"
     colon = "</div><div class='date_select_time_container'><div class='datetime_select_colon_label'>:</div>"
-    haml_concat capture_haml(&block).gsub(":", "#{colon}").gsub("&mdash;", "#{time}").gsub("\n", '')
+    haml_concat capture_haml(&block).gsub(":", "#{colon}").gsub("&mdash;", "#{time}").gsub("\n", '').html_safe
   end
   
   # Class is selected if listing type is currently selected
@@ -59,16 +59,21 @@ module ListingsHelper
   
   def listed_listing_title(listing)
     if listing.share_type
-      logger.info "Share type: #{listing.share_type}"
       if listing.share_type.eql?("trade")
         t("listings.show.#{listing.category}_#{listing.listing_type}_#{listing.share_type}") + ": #{listing.title}"
       else
         t("common.share_types.#{listing.share_type}").capitalize + ": #{listing.title}"
       end
     else
-      logger.info "No share type"
       t("listings.show.#{listing.category}_#{listing.listing_type}") + ": #{listing.title}"
     end
+  end
+  
+  # expects category_string to be "item", "favor", "rideshare" or "housing"
+  def localized_category_label(category_string)
+    return nil if category_string.nil?
+    category_string += "s" if ["item", "favor"].include?(category_string)
+    return t("listings.index.#{category_string}")
   end
   
 end
