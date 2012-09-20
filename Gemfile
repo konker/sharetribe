@@ -62,3 +62,7 @@ group :test do
   gem "pickle"
 end
 
+group :production do
+  gem 'thin'
+end
+
