@@ -50,3 +50,12 @@ Before('@seeds') do
   load "#{Rails.root}/db/seeds.rb"
 end
 
+Before ('@www_subdomain') do
+  Capybara.default_host = 'www.lvh.me'
+  Capybara.app_host = "http://www.lvh.me:9887"
+end
+
+After('@www_subdomain') do
+  Capybara.default_host = 'test.lvh.me'
+  Capybara.app_host = "http://test.lvh.me:9887"
+end
