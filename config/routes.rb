@@ -233,6 +233,7 @@ Kassi::Application.routes.draw do
   # Tutorial pages
   scope "(/:locale)" do
     match "/tutorial" => redirect("/%{locale}/tutorial/requests")
+    match "/tutorial/splash" => "tutorial#splash", :as => :tutorial_splash
     match "/tutorial/requests" => "tutorial#requests", :as => :tutorial_requests
     match "/tutorial/offers" => "tutorial#offers", :as => :tutorial_offers
     match "/tutorial/profile" => "tutorial#profile", :as => :tutorial_profile

@@ -176,7 +176,12 @@ class ListingsController < ApplicationController
       render :action => :new
     else
       path = new_request_category_path(:type => @listing.listing_type, :category => @listing.category)
-      flash[:notice] = ["#{@listing.listing_type}_created_successfully", "create_new_#{@listing.listing_type}".to_sym, path]
+      if session[:tutorial_next_path].nil?
+        flash[:notice] = ["#{@listing.listing_type}_created_successfully", "create_new_#{@listing.listing_type}".to_sym, path]
+      else
+        flash[:notice] = ["#{@listing.listing_type}_created_successfully", "create_new_#{@listing.listing_type}".to_sym, path, :or_return_to_tutorial, session[:tutorial_next_path] ]
+      end
+
       Delayed::Job.enqueue(ListingCreatedJob.new(@listing.id, request.host))
       redirect_to @listing
     end

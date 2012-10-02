@@ -9,9 +9,16 @@ class TutorialController < ApplicationController
   skip_filter :not_public_in_private_community, :dashboard_only
   skip_filter :single_community_only
 
+  def splash
+    @name = @current_user.given_name_or_username
+  end
+
   def requests
     @cur_path = tutorial_requests_path
     @next_path = tutorial_offers_path
+
+    # store the next tutorial step in a session var
+    session[:tutorial_next_path] = @next_path
 
     max_listings = 5
     @listings = Listing.requests.visible_to(@current_user, @current_community).open.limit(max_listings)
@@ -24,6 +31,9 @@ class TutorialController < ApplicationController
     @cur_path = tutorial_offers_path
     @next_path = tutorial_profile_path
 
+    # store the next tutorial step in a session var
+    session[:tutorial_next_path] = @next_path
+
     max_listings = 5
     @listings = Listing.offers.visible_to(@current_user, @current_community).open.limit(max_listings)
 
@@ -34,11 +44,17 @@ class TutorialController < ApplicationController
   def profile
     @cur_path = tutorial_profile_path
     @next_path = tutorial_invite_path
+
+    # store the next tutorial step in a session var
+    session[:tutorial_next_path] = @next_path
   end
 
   def invite
     @cur_path = tutorial_invite_path
     @next_path = root_path
+
+    # remove the session var at the end of the tutorial
+    session[:tutorial_next_path] = nil
   end
   
   private

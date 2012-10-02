@@ -1,0 +1,19 @@
+#tutorial.splash
+  - if @private_layout
+    .container_12
+      .grid_6.prefix_3.suffix_3
+        %h2
+          TODO
+
+  - else
+    %h2.grid_24
+      = t('.welcome_to_sharetribe_name', :name => @name)
+    .action
+      %p.blurb
+        = t(".tutorial_splash_text")
+      %p.action_button
+        = link_to t(".tutorial_accept"), tutorial_requests_path
+      %p.skip_link
+        = link_to t(".tutorial_skip"), root_path
+
+

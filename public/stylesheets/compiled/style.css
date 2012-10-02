@@ -1,7 +1,7 @@
-@import url('../reset.css');
-@import url('../text.css');
-@import url('../960_24_col.css');
-@import url('../uniform.kassi.css');
+@import url("../reset.css");
+@import url("../text.css");
+@import url("../960_24_col.css");
+@import url("../uniform.kassi.css");
 /* Main colors */
 /* Other colors */
 /* Used to fix form padding problem in FF */
@@ -1862,10 +1862,10 @@ div.listing_author_feedback_percentage {
 
 .inbox_tab_selected {
   float: left;
-  margin-right: 8px; }
+  margin-right: 5px; }
   .inbox_tab_selected a {
     padding-top: 9px;
-    width: 140px;
+    width: 130px;
     height: 27px;
     text-align: center;
     display: block;
@@ -1883,10 +1883,10 @@ div.listing_author_feedback_percentage {
 
 .inbox_tab_unselected {
   float: left;
-  margin-right: 8px; }
+  margin-right: 5px; }
   .inbox_tab_unselected a {
     padding-top: 9px;
-    width: 140px;
+    width: 130px;
     height: 27px;
     text-align: center;
     display: block;
@@ -3974,8 +3974,8 @@ input.resend_email_confirmation_button {
         #tutorial .action .action_button a:active {
           background: #a33f05; }
       #tutorial .action .action_button a {
-        font-weight: bold;
-        font-size: 18px; }
+        font-weight: normal;
+        font-size: 22px; }
     #tutorial .action .skip_link {
       clear: both;
       text-align: center; }
@@ -4063,6 +4063,20 @@ input.resend_email_confirmation_button {
         border-width: 15px;
         top: 50%;
         margin-top: -15px; }
+
+#tutorial.splash h2 {
+  margin: 48px 0 0 0; }
+#tutorial.splash .action {
+  text-align: center; }
+  #tutorial.splash .action .blurb {
+    font-size: 18px;
+    width: 24em;
+    margin: 0 auto; }
+  #tutorial.splash .action .action_button {
+    float: none;
+    margin: 10px auto; }
+  #tutorial.splash .action .skip_link {
+    font-weight: normal; }
 
 /* Tag cloud - Massi code */
 #tag_cloud {

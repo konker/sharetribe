@@ -38,6 +38,10 @@ class HomepageController < ApplicationController
         @news_item_count = @current_community.news_items.count
       end  
     end
+
+    # Clear tutorial session var.
+    # XXX: should this be triggered more explicily?
+    session[:tutorial_next_path] = nil
   end
   
   def sign_in

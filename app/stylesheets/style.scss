@@ -1501,10 +1501,10 @@ div.listing_author_feedback_percentage {
 
 @mixin inbox_tab {
 	float: left;
-	margin-right: 8px;
+	margin-right: 5px;
 	a {
 		padding-top: 9px;
-		width: 140px;
+		width: 130px;
 		height: 27px;
 		text-align: center;
 		display: block;
@@ -3326,8 +3326,8 @@ input.resend_email_confirmation_button {
     .action_button {
       @include home_button($orange, 350px);
       a  {
-        font-weight: bold;
-        font-size: 18px;
+        font-weight: normal;
+        font-size: 22px;
       }
     }
     .skip_link {
@@ -3440,6 +3440,28 @@ input.resend_email_confirmation_button {
   }
 }
 
+#tutorial.splash {
+  h2 {
+    margin: 48px 0 0 0;
+  }
+
+  .action {
+    text-align: center;
+
+    .blurb {
+      font-size: 18px;
+      width: 24em;
+      margin: 0 auto;
+    }
+    .action_button {
+      float: none;
+      margin: 10px auto;
+    }
+    .skip_link {
+      font-weight: normal;
+    }
+  }
+}
 
 /* Tag cloud - Massi code */
 #tag_cloud {text-align: justify; }

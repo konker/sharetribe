@@ -8,12 +8,16 @@
       %div{:class => announcement.to_s}
         .notification_text
           - if flash[announcement].is_a?(Array)
-            - if flash[announcement][3]
+            - if flash[announcement][3] and flash[announcement][3].is_a?(Array)
               = t(".#{flash[announcement][0]}", flash[announcement][3][0] => flash[announcement][3][1].capitalize)
             - else
               = t(".#{flash[announcement][0]}")
             - link_text = flash[announcement][1].class.to_s.eql?("String") ? flash[announcement][1] : t(".#{flash[announcement][1]}")
             = link_to(link_text, flash[announcement][2]) 
+
+            - if flash[announcement][4] and flash[announcement][4].is_a?(String)
+              - link_text = flash[announcement][3].class.to_s.eql?("String") ? flash[announcement][3] : t(".#{flash[announcement][3]}")
+              = link_to(link_text, flash[announcement][4]) 
           - else
             - if flash[announcement].is_a?(String) && flash[announcement].strip.include?(" ")
               / if the string looks like it's already translated (contains spaces) do not translate again
